@@ -42,13 +42,13 @@ document.addEventListener('DOMContentLoaded', () =>{
 //Event listener para los select de búsqueda
 marca.addEventListener('change', e => {
     datosBusqueda.marca = e.target.value;
-
+    // Mandar llamar la función de filtrar Autos
     filtrarAuto();
 
 });
 year.addEventListener('change', e => {
     datosBusqueda.year = parseInt(e.target.value); //convierto los strings en números
-    
+     // Mandar llamar la función de filtrar Autos
     filtrarAuto();
 
 
@@ -102,7 +102,7 @@ function mostrarAutos(){
 }
 //Genera los años del select
 function llenarSelect (){
-    for (let i = max; i>=min; i--) { //corre hacia atrás del 2023-2013
+    for (let i = max; i >= min; i--) { //corre hacia atrás del 2023-2013
         const opcion = document.createElement('option');
         opcion.value = i;
         opcion.textContent = i;
