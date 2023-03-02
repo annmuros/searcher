@@ -93,7 +93,9 @@ function mostrarAutos(){
         const {marca, modelo, year, puertas, transmision, precio, color} = auto;//Destructuring
         const autoHTML = document.createElement('p');
 
-        autoHTML.textContent= `${marca} ${modelo} - ${puertas} Puertas - Transmisión: ${transmision} - Color: ${color}`;
+        autoHTML.innerHTML = `
+        <p>${auto.marca} ${auto.modelo} - ${auto.year} - ${auto.puertas} Puertas - Transmisión: ${auto.transmision} - Precio: ${auto.precio} - Color: ${auto.color}</p>
+        `;
 
         //insertar en el html
         resultado.appendChild(autoHTML)
@@ -114,7 +116,7 @@ function llenarSelect (){
 
 function filtrarAuto() {
     const resultado = autos.filter(filtrarMarca).filter(filtrarYear)
-    console.log (resultado);
+    //console.log (resultado);
 }
 
 function filtrarMarca (auto) {
@@ -129,7 +131,7 @@ function filtrarYear (auto) {
     const {year} = datosBusqueda;
    
     if (year){
-        return auto.marca === year;
+        return auto.year === year;
     }
     return auto;
 
