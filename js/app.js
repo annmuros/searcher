@@ -32,7 +32,7 @@ const datosBusqueda = {
 
 //eventos
 document.addEventListener('DOMContentLoaded', () =>{
-    mostrarAutos();//muestra automobiles
+    mostrarAutos(autos);//muestra automobiles
 
     //llena las opciones de años
     llenarSelect();
@@ -88,7 +88,8 @@ color.addEventListener('change', e => {
 
 
 //funciones
-function mostrarAutos(){
+function mostrarAutos(autos){
+    limpiarHTML();//elimina el HTML previo
     autos.forEach(auto => {
         const {marca, modelo, year, puertas, transmision, precio, color} = auto;//Destructuring
         const autoHTML = document.createElement('p');
@@ -99,7 +100,7 @@ function mostrarAutos(){
 
         //insertar en el html
         resultado.appendChild(autoHTML)
-})
+    })
 
 }
 //Genera los años del select
@@ -108,15 +109,26 @@ function llenarSelect (){
         const opcion = document.createElement('option');
         opcion.value = i;
         opcion.textContent = i;
-        year.appendChild(opcion);// Agrega opciones de año al select
+        year.appendChild(opcion);// Agrega opciones de año al select, no borra el código previo
     }
 }
+
+//Limpiar HTML
+function limpiarHTML(){
+    while(resultado.firstChild){
+        resultado.removeChild(resultado.firstChild);
+
+    }
+
+}
+
 
 //funcion que filtra en función de la búsqueda FUNCIÓN DEL ALTO NIVEL
 
 function filtrarAuto() {
     const resultado = autos.filter(filtrarMarca).filter(filtrarYear)
     //console.log (resultado);
+    mostrarAutos(resultado);
 }
 
 function filtrarMarca (auto) {
