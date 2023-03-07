@@ -68,8 +68,9 @@ maximo.addEventListener('change', e => {
 });
 
 puertas.addEventListener('change', e => {
-    datosBusqueda.puertas = e.target.value;
+    datosBusqueda.puertas = parseInt(e.target.value); //convierto los strings en números
     //console.log(datosBusqueda);
+    filtrarAuto();
    
 
 });
@@ -77,12 +78,14 @@ puertas.addEventListener('change', e => {
 transmision.addEventListener('change', e => {
     datosBusqueda.transmision = e.target.value;
     //console.log(datosBusqueda);
+    filtrarAuto();
     
 
 });
 color.addEventListener('change', e => {
     datosBusqueda.color = e.target.value;
-    console.log(datosBusqueda);
+    //console.log(datosBusqueda);
+    filtrarAuto();
     
 
 });
@@ -127,9 +130,24 @@ function limpiarHTML(){
 //funcion que filtra en función de la búsqueda FUNCIÓN DEL ALTO NIVEL
 
 function filtrarAuto() {
-    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo)
+    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo).filter(filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor);
     //console.log (resultado);
     mostrarAutos(resultado);
+
+    if(resultado.length){
+        mostrarAutos(resultado);
+    } else {
+        noResultado();
+    }
+}
+
+function noResultado(){
+    limpiarHTML();
+
+    const noResultado = document.createElement('div');
+    noResultado.classList.add('alerta', 'error');
+    noResultado.textContent = 'No hay resultados, intenta con otros términos de búsqueda';
+    resultado.appendChild(noResultado)
 }
 
 function filtrarMarca (auto) {
@@ -164,6 +182,36 @@ function filtrarMaximo (auto) {
     const {maximo} = datosBusqueda;
     if (maximo){
         return auto.precio <= maximo;
+    }
+    return auto;
+
+}
+
+function filtrarPuertas (auto) {
+    const {puertas} = datosBusqueda;
+   
+    if (puertas){
+        return auto.puertas === puertas;
+    }
+    return auto;
+
+}
+
+function filtrarTransmision (auto) {
+    const {transmision} = datosBusqueda;
+   
+    if (transmision){
+        return auto.transmision === transmision;
+    }
+    return auto;
+
+}
+
+function filtrarColor (auto) {
+    const {color} = datosBusqueda;
+   
+    if (color){
+        return auto.color === color;
     }
     return auto;
 
